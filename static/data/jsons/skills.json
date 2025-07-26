@@ -117,7 +117,7 @@
     },
     {
         "name":"Apache Hadoop",
-        "logo":"Apache Hadoop.svg"
+        "logo":"ApacheHadoop.svg"
     },
     {
         "name":"Git",
@@ -133,7 +133,7 @@
     },
     {
         "name":"Windows",
-        "logo":"Windows 11.svg"
+        "logo":"Windows.svg"
     },
     {
         "name":"Linux",
