@@ -1,0 +1,71 @@
+{% extends "navbar.html" %}
+
+{% block links %}
+<link rel="stylesheet" href="/static/style/index.css">
+{% endblock %}
+
+{%block content%}
+<div class="contents">
+    <div class="text">
+        <h1 class="l1">Hi I'm</h1>
+            <h1 class="l2">Dhinesh Kumar</h1>
+            <h4 class="l3-a">And I'm a <span class="l3-b" id="changing-text">Data Scientist</span></h4>
+            <div class="sites">
+                <a href="https://github.com/Dhineshkumarprakasam"><img class="logo" src="/static/data/social/GitHub.png" alt=""></a>
+                <a href="https://www.linkedin.com/in/dhineshkumar-prakasam-a7454b251/"><img class="logo"
+                        src="/static/data/social/LinkedIn.png" alt=""></a>
+                <a href="https://www.reddit.com/user/Dhineshkumarprakasam/"><img class="logo" src="/static/data/social/Reddit.png"
+                        alt=""></a>
+                <a href="https://leetcode.com/u/dhineshkumarprakasam/"><img class="logo" src="/static/data/social/Source Code.png"
+                        alt=""></a>
+            </div>
+    </div>
+
+    <div class="profile">
+        <img class="myphoto" src="/static/data/profile.png" alt="">
+        <a href="/static/data/dhinesh_resume.pdf"><button class="resume vibrate-1">
+                <h2>Resume</h2>
+            </button></a>
+    </div>
+
+    <div class="sites-under">
+        <a href="https://github.com/Dhineshkumarprakasam"><img class="logo" src="/static/data/social/GitHub.png" alt=""></a>
+        <a href="https://www.linkedin.com/in/dhineshkumar-prakasam-a7454b251/"><img class="logo" src="/static/data/social/LinkedIn.png"
+                alt=""></a>
+        <a href="https://www.reddit.com/user/Dhineshkumarprakasam/"><img class="logo" src="/static/data/social/Reddit.png" alt=""></a>
+        <a href="https://leetcode.com/u/dhineshkumarprakasam/"><img class="logo" src="/static/data/social/Source Code.png" alt=""></a>
+    </div>
+</div>
+<script>
+    const titles = ["Data Scientist", "Web Developer", "Flutter Developer", "Programmer"];
+    const element = document.getElementById("changing-text");
+    let titleIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+
+    function type() {
+        const current = titles[titleIndex];
+        const displayed = current.substring(0, charIndex);
+
+        
+        element.textContent = displayed;
+
+        if (!isDeleting && charIndex < current.length) {
+            charIndex++;
+        } else if (isDeleting && charIndex > 0) {
+            charIndex--;
+        } else if (!isDeleting && charIndex === current.length) {
+            isDeleting = true;
+            setTimeout(type, 1000); // Pause after complete word
+            return;
+        } else if (isDeleting && charIndex === 0) {
+            isDeleting = false;
+            titleIndex = (titleIndex + 1) % titles.length;
+        }
+
+        setTimeout(type, isDeleting ? 50 : 100); // typing/deleting speed
+    }
+
+    type(); // start typing
+</script>
+{%endblock%}

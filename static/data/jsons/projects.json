@@ -1,0 +1,185 @@
+[
+    {
+        "title": "HelpMe@OS",
+        "description": "Developed an interactive web-based application to assist users in navigating operating system concepts and troubleshooting common algorithms.",
+        "tech": [
+            "Flask",
+            "HTML",
+            "CSS",
+            "JavaScript"
+        ],
+        "category": "Web App",
+        "github" : "https://github.com/Dhineshkumarprakasam/HelpmeAtOS",
+        "preview": "https://helpmeatos-production.up.railway.app/index",
+        "banner" : "help_me_at_os.png"
+    },
+    {
+        "title": "Type Master",
+        "description": "Developed a clean and responsive web-based application to enhance typing skills by offering engaging practice sessions and real-time performance feedback.",
+        "tech": [
+            "HTML",
+            "CSS",
+            "JavaScript",
+            "Bootstrap",
+            "Flask",
+            "SQLite"
+        ],
+        "category": "Web App",
+        "github" : "https://github.com/Dhineshkumarprakasam/TypeMaster",
+        "preview": "https://type-master-zeta.vercel.app/",
+        "banner" : "type_master.png"
+    },
+
+    {
+    "title": "Math Booster",
+    "description": "Built a mobile math practice app to improve basic skills like add, subtract, multiply, and divide, with score tracking, attempt stats, and a clean, user-friendly Flutter interface.",
+    "tech": [
+        "Dart",
+        "Flutter"
+    ],
+    "category": "Mobile App",
+    "github": "https://github.com/Dhineshkumarprakasam/math_booster",
+    "banner": "math_booster.jpg"
+},
+    {
+    "title": "Notes App",
+    "description": "Built a cross-platform mobile app using Flutter to let users create, edit, and organize personal notes with a clean and responsive UI.",
+    "tech": [
+        "Dart",
+        "Flutter",
+        "SQLite"
+    ],
+    "category": "Mobile App",
+    "github": "https://github.com/Dhineshkumarprakasam/mobile_notes_app",
+    "preview": "https://drive.google.com/file/d/1FdQ-ynRn03xhyLDpiJGVLBJA5noyFTAb/view?usp=sharing",
+    "banner": "notes_app.png"
+},
+
+
+    {
+        "title": "Number Game",
+        "description": "Developed an interactive web-based number game with real-time score tracking, leaderboard competition, responsive design, intuitive interface, and comprehensive help section.",
+        "tech": [
+            "HTML",
+            "CSS",
+            "Javascript",
+            "Flask",
+            "SQLite"
+        ],
+        "category": "Web App",
+        "github" : "https://github.com/Dhineshkumarprakasam/number-game",
+        "preview": "https://number-game-beta.vercel.app/",
+        "banner" : "number_game.png"
+    },
+    {
+    "title": "Loan Predictor",
+    "description": "Built a Flutter-based mobile app that interacts with a Flask API to predict loan approval outcomes using machine learning on user-submitted data.",
+    "tech": [
+        "Dart",
+        "Flutter",
+        "Flask",
+        "Scikit-learn"
+    ],
+    "category": "Mobile App",
+    "github": "https://github.com/Dhineshkumarprakasam/loan_approval_prediction",
+    "preview": "https://drive.google.com/drive/folders/1nIsROKvYHx6-awFciJeSrJ3h8MU08531?usp=sharing",
+    "banner": "loan_predictor.png"
+},
+    {
+        "title": "Heart Disease Prediction",
+        "description": "Developed a heart disease prediction model using logistic regression, achieving 84.24% accuracy, highlighting predictive analytics' impact on healthcare.",
+        "tech": [
+            "Python",
+            "Pandas",
+            "Numpy",
+            "Seaborn",
+            "Sklearn"
+        ],
+        "category": "Machine Learning",
+        "preview": "https://www.kaggle.com/code/dhineshkumarprakasam/heart-disease-prediction",
+        "banner" : "heart_disease.png"
+    },
+    {
+        "title": "Titanic Survival Prediction",
+        "description": "Predicted Titanic passenger survival using machine learning: Logistic Regression, Decision Tree, SVM achieved accuracies up to 84.92%, identifying key survival factors.",
+        "tech": [
+            "Python",
+            "Pandas",
+            "Numpy",
+            "Matplotlib"
+        ],
+        "category": "Machine Learning",
+        "preview": "https://www.kaggle.com/code/dhineshkumarprakasam/titanic-survival-prediction",
+        "banner" : "titanic.png"
+    },
+    {
+        "title": "Spam Detector",
+        "description": "Developed a system to detect and filter spam messages using machine learning algorithms, classifying emails or texts as spam or non-spam (ham) accurately.",
+        "tech": [
+            "HTML",
+            "CSS",
+            "Flask",
+            "Numpy",
+            "Sklearn",
+            "Pandas"
+        ],
+        "category": "Machine Learning",
+        "github" : "https://github.com/Dhineshkumarprakasam/Spam_detector",
+        "preview": "https://spam-detector-35jk.onrender.com/",
+        "banner" : "spam_detector.png"
+    },
+    {
+        "title": "Adidas Sales EDA",
+        "description": "This project analyzed Adidas sales data to find trends, segment customers, and explore sales factors, providing insights for strategic decisions.",
+        "tech": [
+            "Python",
+            "Pandas",
+            "Numpy",
+            "Matplotlib"
+        ],
+        "category": "EDA",
+        "preview": "https://www.kaggle.com/code/dhineshkumarprakasam/adidas-sales-eda",
+        "banner" : "adidas.png"
+    },
+    {
+        "title": "Play Store EDA",
+        "description": "Explored Google Play Store apps through Exploratory Data Analysis (EDA), revealing trends in categories, user ratings, reviews, app size versus installs, and app monetization.",
+        "tech": [
+            "Python",
+            "Pandas",
+            "Numpy",
+            "Matplotlib",
+            "Seaborn"
+        ],
+        "category": "EDA",
+        "preview": "https://www.kaggle.com/code/dhineshkumarprakasam/playstore-eda",
+        "banner" : "playstore.png"
+    },
+    {
+        "title": "To-Do App",
+        "description": "A To-Do app where users can log in to manage tasks (create, update, delete), with tasks stored in a database. It ensures personalized task management for each user.",
+        "tech": [
+            "HTML",
+            "CSS",
+            "Python Flask",
+            "Restful API"
+        ],
+        "category": "Web App",
+        "github":"https://github.com/Dhineshkumarprakasam/Todo_App",
+        "banner":"todo_app.png"
+    },
+    {
+        "title": "Shopping Mall Sales EDA",
+        "description": "Conducted thorough data analysis on shopping mall sales, revealing insights into consumer behavior, product trends, and sales patterns.",
+        "tech": [
+            "Python",
+            "Pandas",
+            "Numpy",
+            "Matplotlib"
+        ],
+        "category": "EDA",
+        "preview": "https://www.kaggle.com/code/dhineshkumarprakasam/shopping-mall-eda",
+        "banner" : "shopping_mall.png"
+    }
+]
+

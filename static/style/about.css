@@ -1,0 +1,527 @@
+.description-main
+{
+    width: fit-content;
+    text-align: center;
+    padding-top: 50px;
+    font-family: "Comic Neue", cursive;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 30px;
+    color:#2ca42c;
+    width: 100%;
+}
+.description {
+    width: fit-content;
+    padding-left: 100px;
+    padding-right: 100px;
+    padding-top: 30px;
+    text-indent: 50px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 20px;
+}
+
+
+dl {
+    padding-left: 100px;
+    padding-right: 100px;
+    width: fit-content;
+}
+
+dt {
+    margin-top: 80px;
+}
+
+.subtitle {
+    font-family: "Comic Neue", cursive;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 25px;
+    color: #2ca42c;
+    display: flex;
+    align-items: center;
+}
+
+.subtitle span{
+    font-size: 30px;
+    padding-right: 2px;
+}
+
+.item {
+    width: 610px;
+    margin-left: 30px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
+.item-title {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0px;
+}
+
+.item-date {
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    color: gray;
+}
+
+.item-role {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0px;
+    font-style: italic;
+}
+
+.item-grade {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0px;
+    font-weight: 600;
+}
+
+.item-description {
+    font-size: 16px;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0px;
+    padding-top: 10px;
+}
+
+
+.certificate-link {
+    all: unset;
+    cursor: pointer;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-decoration: underline;
+    font-weight: bold;
+    color: #D32F2F;
+
+}
+
+.certificate-link:hover {
+    color: #FF1744;
+    text-decoration: none;
+    text-shadow: 0 0 2px #FF8A80;
+}
+
+.course-work {
+    grid-template-columns: repeat(3, minmax(280px, 1fr));
+    display: grid;
+    gap: 10px 80px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px;
+    list-style: none;
+
+}
+
+.course-work li {
+    background-color: #fcebea;
+    padding: 8px 12px;
+    border-left: 4px solid #d32f2f;
+    border-radius: 4px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+
+.course-work li:hover {
+    background-color: #f8bbd0;
+    box-shadow: 0 0 20px #f8bbd0;
+}
+
+.card__button {
+    padding: 8px 20px;
+    border-radius: 6px;
+    background: #65E665;
+    border: none;
+    color: black;
+    font-family: "Comic Neue", cursive;
+    font-weight: 700;
+    font-size: 18px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-decoration: none;
+}
+
+.card__button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.table-text {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.spl-item td {
+    padding: 20px 15px;
+    text-align: left;
+}
+
+.spl-item tr:hover {
+    background-color: #e7e6e6;
+}
+
+
+.skills-container {
+    display: flex;
+    width: fit-content;
+    gap: 50px;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 40px;
+}
+
+svg
+{
+    width: 50px;
+    height: 50px;
+    color: #2ca42c;
+}
+
+.skill-card {
+    position: relative;
+    background: white;
+    box-shadow: 0 0 15px rgba(20, 20, 20, 0.9);
+    padding: 40px 20px 30px;
+    width: 250px;
+    border-radius: 8px;
+    text-align: center;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.skill-card h2 {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+.skill-card p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.table-item{
+    width: 800px;
+}
+
+/* Mobile Styles */
+@media (max-width: 426px) {
+    
+    .description-main{
+        font-size: 22px;
+    }
+
+    .description
+    {
+        padding-left: 20px;
+        padding-right: 20px;
+        font-size: 13px;
+        text-align: justify;
+    }
+
+    .skills-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subtitle
+    {
+        margin-left: 10px;
+        font-size: 18px;
+        padding-left: -10px;
+    }
+
+
+    dl {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 320px;
+        margin-bottom: 0px;
+    }
+
+    dt{
+        padding-top: 5px;
+        margin-top: 5px;
+        width: fit-content;
+    }
+
+    .subtitle span 
+    {
+        font-size: 18px;
+        padding-right: 0px;
+        margin-right: -10px;
+    }
+
+    
+.item {
+    width: 300px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.item-title {
+    font-size: 14px;
+}
+
+.item-date {
+    font-size: 14px;
+}
+
+.item-role {
+    font-size: 14px;
+}
+
+.item-grade {
+    font-size: 14px;
+}
+
+.item-description {
+    font-size: 14px;
+}
+
+.item-links{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.item-description {
+    font-size: 12px;
+}
+
+
+.certificate-link {
+    font-size: 12px;
+}
+
+.course-work {
+    grid-template-columns: 1fr;
+    display: grid;
+    gap: 10px 80px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px;
+    font-size: 12px;
+    list-style: none;
+
+}
+
+.course-work li 
+{
+    width: 180px;
+}
+
+.table-text{
+    font-size: 12px;
+}
+
+.card__button {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.spl-item td {
+    padding: 10px 7px;
+    text-align: left;
+}
+
+.table-item
+{
+    width: 300px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+    margin-right: 0px;
+}
+
+
+.skill-card h2 {
+    font-size: 12px;
+    margin: 5px 0px;
+}
+
+.skill-card p {
+    font-size: 10px;
+    padding: 5px 5px 10px;
+}
+
+svg
+{
+    width: 30px;
+    height: 30px;
+}
+.skill-card {
+    width: 180px;
+    height: fit-content;
+    border-radius: 8px;
+    text-align: center;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+}
+
+
+
+/* Mobile small Styles */
+@media (max-width: 321px) {
+    
+    .description-main{
+        font-size: 20px;
+    }
+
+    .description
+    {
+        padding-left: 18px;
+        padding-right: 18px;
+        font-size: 11px;
+        text-align: justify;
+    }
+
+    .skills-container{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .subtitle
+    {
+        margin-left: 8px;
+        font-size: 16px;
+        padding-left: -10px;
+    }
+
+
+    dl {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 300px;
+        margin-bottom: 0px;
+    }
+
+    dt{
+        padding-top: 5px;
+        margin-top: 5px;
+        width: fit-content;
+    }
+
+    .subtitle span 
+    {
+        font-size: 18px;
+        padding-right: 0px;
+        margin-right: -10px;
+    }
+
+    
+.item {
+    width: 260px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.item-title {
+    font-size: 14px;
+}
+
+.item-date {
+    font-size: 14px;
+}
+
+.item-role {
+    font-size: 14px;
+}
+
+.item-grade {
+    font-size: 14px;
+}
+
+.item-description {
+    font-size: 14px;
+}
+
+.item-links{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.item-description {
+    font-size: 12px;
+}
+
+
+.certificate-link {
+    font-size: 12px;
+}
+
+.course-work {
+    grid-template-columns: 1fr;
+    display: grid;
+    gap: 10px 80px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    padding: 10px;
+    font-size: 12px;
+    list-style: none;
+
+}
+
+.course-work li 
+{
+    width: 180px;
+}
+
+.table-text{
+    font-size: 12px;
+}
+
+.card__button {
+    padding: 5px 10px;
+    font-size: 12px;
+}
+
+.spl-item td {
+    padding: 10px 7px;
+    text-align: left;
+}
+
+.table-item
+{
+    width: 250px;
+    margin-top: 15px;
+    margin-bottom: 40px;
+    margin-left: 30px;
+    margin-right: 0px;
+}
+
+
+.skill-card h2 {
+    font-size: 10px;
+    margin: 5px 0px;
+}
+
+.skill-card p {
+    font-size: 10px;
+    padding: 5px 5px 10px;
+}
+
+svg
+{
+    width: 30px;
+    height: 30px;
+}
+.skill-card {
+    width: 180px;
+    height: fit-content;
+    border-radius: 8px;
+    text-align: center;
+    font-family: sans-serif;
+    overflow: hidden;
+}
+}

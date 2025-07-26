@@ -1,0 +1,41 @@
+{% extends "navbar.html" %}
+
+{% block links %}
+<link rel="stylesheet" href="/static/style/projects.css">
+{% endblock %}
+
+{% block content %}
+<div class="content">
+
+    <center>
+        <div class="buttons">
+            {% for cat in ['All','Machine Learning','EDA','Mobile App', 'Web App', ] %}
+            <a href="{{ url_for('projects') }}?category={{ cat }}"
+                class="category-button {% if cat == selected %}active{% endif %}">
+                {{ cat }}
+            </a>
+            {% endfor %}
+        </div>
+    </center>
+
+    <div class="project-content">
+        {% for project in projects %}
+        <div class="card">
+            <div class="card__content">
+                <img class="card-img" src="/static/data/project_promo/{{project.banner}}" alt="image.png">
+                <p class="card__title">{{project.title}}</p>
+                <p class="card__description">{{project.description}}</p>
+                <p class="card__description">Skills : {{ project.tech | join(', ') }}</p>
+                {% if project.preview %}
+                <button onclick="window.open('{{project.preview}}','_blank');" class="card__button">Preview</button>
+                {% endif %}
+
+                {% if project.github %}
+                <button onclick="window.open('{{project.github}}','_blank');" class="card__button secondary">Source
+                    Code</button>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endblock %}

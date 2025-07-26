@@ -1,0 +1,27 @@
+{% extends 'navbar.html' %}
+
+{% block links %}
+<link rel="stylesheet" href="/static/style/skills.css">
+
+<link rel="stylesheet" type='text/css' href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+{% endblock %}
+
+{% block content %}
+<div class="skill-container-wrapper">
+    <div class="skill-container">
+
+        {% for skill in data %}
+            {% if skill['name']=='-' %}
+                <hr>
+            {% else %}
+            <div class="skill">
+                <img src="/static/data/logo/{{ skill['logo'] }}" alt="logo">
+                <span class="skill-title">{{skill['name']}}</span>
+            </div>
+            {%endif%}
+        {%endfor%}
+
+    
+    </div>
+</div>
+{% endblock %}

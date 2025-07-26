@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Portfolio</title>
+    <link rel="icon" href="/static/data/boy_icon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style/navbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+        rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    {% block links %} {% endblock %}
+</head>
+
+<body>
+    <nav class="header">
+        <div class="tab">
+            <button class="menu-toggle" id="menu-toggle">☰</button>
+            <h1 class="heading">Portfolio</h1>
+            <div class="nav-links" id="nav-links">
+                <button class="close-btn" id="close-btn">&times;</button>
+                <ul class="nav-ul">
+                    <li class="ta"><a href="{{url_for('index')}}"><span class="material-symbols-outlined">home</span>Home</a></li>
+                    <li class="ta"><a href="{{url_for('about')}}"><span class="material-symbols-outlined">person</span>About</a></li>
+                    <li class="ta"><a href="{{url_for('skills')}}"><span class="material-symbols-outlined">settings</span>Skills</a></li>
+                    <li class="ta"><a href="{{url_for('projects')}}"><span class="material-symbols-outlined">terminal</span>Projects</a></li>
+                    <li class="ta"><a href="https://mail.google.com/mail/?view=cm&fs=1&to=dhineshkumarprakasam@gmail.com" target="_blank"><span class="material-symbols-outlined">chat</span>Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="bounce-in-fwd">
+        {%block content%}
+        {% endblock%}
+    </div>
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            document.getElementById('nav-links').classList.toggle('show');
+        });
+
+        document.getElementById('close-btn').addEventListener('click', function () {
+            document.getElementById('nav-links').classList.remove('show');
+        });
+
+    </script>
+</body>
+
+</html>

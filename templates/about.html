@@ -1,0 +1,104 @@
+{% extends "navbar.html" %}
+
+{% block links %}
+<link rel="stylesheet" href="/static/style/about.css" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link
+    href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Comic+Neue:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap"
+    rel="stylesheet">
+{% endblock %}
+
+
+{% block content %}
+<div class="description-main">If it doesn’t exist, I’ll build it</div>
+<div class="description">{{ data["description"] | safe }}</div>
+
+<center>
+    <div class="skills-container">
+        {% for skill in data["skill"] %}
+            <div class="skill-card">
+                <div class="skill-icon">{{ skill['icon'] | safe }}</div>
+                <h2>{{ skill['title'] }}</h2>
+                <p>{{ skill['description'] }}</p>
+            </div>
+        {%endfor%}
+    </div>
+</center>
+<dl>
+    <dt class="subtitle"><span class="material-symbols-outlined">business_center</span>Experience</dt>
+    <dd>
+        {% for job in data['experience'] %}
+            <table class="item" cellspacing="5px">
+                <tr><td class="item-title">{{ job['title'] }}</td></tr>
+                <tr><td class="item-role">{{ job['role'] }}</td></tr>
+                <tr><td class="item-date">{{ job['period'] }}</td></tr>
+                <tr><td class="item-description">{{ job['description'] }}</td></tr>
+                <tr>
+                    <td class="item-links">
+                        {% for link in job['links'] %}
+                            <a class="certificate-link" href="/static/data/certificates/{{ link['file'] }}">{{ link['title'] }}</a> &emsp;
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        {%endfor%}
+    </dd>
+
+    <dt class="subtitle"><span class="material-symbols-outlined">school</span>Education</dt>
+    <dd>
+        {% for edu in data['education'] %}
+            <table class="item" cellspacing="5px">
+                <tr><td class="item-title">{{ edu['title'] }}</td></tr>
+                <tr><td class="item-role">{{ edu['course'] }}</td></tr>
+                <tr><td class="item-date">{{ edu['period'] }}</td></tr>
+                <tr><td class="item-grade">{{ edu['grade'] }}</td></tr>
+                <tr><td class="item-description">{{ edu['description'] }}</td></tr>
+                <tr>
+                    <td class="item-links">
+                        {% for link in edu['links'] %}
+                            <a class="certificate-link" href="/static/data/certificates/{{ link['file'] }}">{{ link['title'] }}</a>&emsp;
+                        {% endfor %}
+                    </td>
+                </tr>
+            </table>
+        {% endfor %}
+    </dd>
+
+
+    <dt class="subtitle"><span class="material-symbols-outlined">assignment</span>Course Work</dt>
+    <dd>
+        <ul class="course-work item">
+            {% for course in data['course_work'] %}
+                <li>{{ course }}</li>
+            {% endfor %}
+        </ul>
+    </dd>
+
+
+    <dt class="subtitle"><span class="material-symbols-outlined">social_leaderboard</span>Achievements</dt>
+    <dd>
+        <table cellpadding="5px" cellspacing="0" border="0" class="table-item spl-item">
+            {% for i in data['achievements'] %}
+                <tr>
+                    <td class="table-text">{{ i['title'] }}</td>
+                    <td><a href="/static/data/certificates/{{ i['file'] }}" class="card__button">Preview</a></td>
+                </tr>
+            {%endfor%}
+        </table>
+    </dd>
+
+
+    <dt class="subtitle"><span class="material-symbols-outlined">badge</span>Licenses & Certifications</dt>
+    <dd>
+        <table cellpadding="5px" cellspacing="0" border="0" class="table-item spl-item">
+            {% for i in data['certificates'] %}
+                <tr>
+                    <td class="table-text">{{ i['title'] }}</td>
+                    <td><a href="/static/data/certificates/{{ i['file'] }}" class="card__button">Preview</a></td>
+                </tr>
+            {%endfor%}
+        </table>
+    </dd>
+</dl>
+{% endblock %}
