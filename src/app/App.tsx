@@ -38,6 +38,7 @@ import {
   Brain,
   NotebookText,
   Landmark,
+  Eye,
 } from "lucide-react";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -1096,37 +1097,52 @@ interface FileTabBarProps {
 
 const allTabs: TabId[] = ["bio.md", "skills.md", "projects.json", "about.md"];
 
-const FileTabBar = ({
-  activeTab,
-  setActiveTab,
-  onMenuClick,
-}: FileTabBarProps) => (
-  <div className="flex items-center border-b border-[#30363d] bg-[#0d1117] shrink-0 overflow-x-auto">
-    <button
-      onClick={onMenuClick}
-      className="md:hidden p-2 ml-2 mr-1 rounded hover:bg-[#21262d] text-[#8b949e] hover:text-[#e6edf3] transition-colors shrink-0"
-    >
-      <Menu className="w-4 h-4" />
-    </button>
-    {allTabs.map((tab) => {
-      const isActive = activeTab === tab;
-      return (
-        <button
-          key={tab}
-          onClick={() => setActiveTab(tab)}
-          className={`flex items-center gap-1.5 px-4 py-2.5 text-[11px] font-mono border-r border-[#30363d] whitespace-nowrap cursor-pointer transition-all duration-150 ${
-            isActive
-              ? "text-[#e6edf3] border-t-2 border-t-[#388bfd] bg-[#161b22]"
-              : "text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#161b22]"
-          }`}
-        >
-          <TabIcon tab={tab} active={isActive} />
-          <span>{tab}</span>
-        </button>
-      );
-    })}
-  </div>
-);
+const FileTabBar = ({ activeTab, setActiveTab, onMenuClick }: FileTabBarProps) => {
+  const [visitors, setVisitors] = useState<number | null>(null);
+
+  useEffect(() => {
+    fetch("https://api.counterapi.dev/v1/dhineshkumar-portfolio/visits/up")
+  .then((res) => res.json())
+  .then((data) => setVisitors(data.count));
+  }, []);
+
+  return (
+    <div className="flex items-center border-b border-[#30363d] bg-[#0d1117] shrink-0 overflow-x-auto">
+      <button
+        onClick={onMenuClick}
+        className="md:hidden p-2 ml-2 mr-1 rounded hover:bg-[#21262d] text-[#8b949e] hover:text-[#e6edf3] transition-colors shrink-0"
+      >
+        <Menu className="w-4 h-4" />
+      </button>
+
+      {allTabs.map((tab) => {
+        const isActive = activeTab === tab;
+        return (
+          <button
+            key={tab}
+            onClick={() => setActiveTab(tab)}
+            className={`flex items-center gap-1.5 px-4 py-2.5 text-[11px] font-mono border-r border-[#30363d] whitespace-nowrap cursor-pointer transition-all duration-150 ${
+              isActive
+                ? "text-[#e6edf3] border-t-2 border-t-[#388bfd] bg-[#161b22]"
+                : "text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#161b22]"
+            }`}
+          >
+            <TabIcon tab={tab} active={isActive} />
+            <span>{tab}</span>
+          </button>
+        );
+      })}
+
+      {/* Visitor counter */}
+      <div className="ml-auto flex items-center gap-1.5 px-4 border-l border-[#30363d] shrink-0">
+        <Eye className="w-3 h-3 text-[#8b949e]" />
+        <span className="text-[11px] font-mono text-[#8b949e]">
+          {visitors === null ? "..." : "Visitors : "+visitors.toLocaleString()}
+        </span>
+      </div>
+    </div>
+  );
+};
 
 // ─── Status Bar ───────────────────────────────────────────────────────────────
 
