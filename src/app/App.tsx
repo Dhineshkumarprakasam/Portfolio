@@ -298,7 +298,7 @@ const BioPage = () => (
 
       {/* Hero heading */}
       <h1
-        className="text-4xl md:text-5xl lg:text-7xl font-black tracking-tight leading-none mb-10"
+        className="text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-none mb-10"
         style={{ fontFamily: "Geist, sans-serif" }}
       >
         <span className="text-[#e6edf3]">SOFTWARE </span>
