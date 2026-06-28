@@ -51,7 +51,7 @@ const projects = [
     name: "JQL",
     icon: FileJson,
     desc: "Lightweight CLI/GUI tool for querying and modifying raw JSON files with real-time validation and LRU caching.",
-    stack: ["Python", "JSON","JavaScript","Bootstrap","HTML/CSS"],
+    stack: ["Python", "JSON", "JavaScript", "Bootstrap", "HTML/CSS"],
     stars: 0,
     forks: 0,
     live: false,
@@ -61,7 +61,7 @@ const projects = [
     name: "HelpMe@OS",
     icon: Cpu,
     desc: "Interactive simulator for 18 classical OS algorithms across CPU, memory, disk, and page replacement subsystems.",
-    stack: ["Python","Flask", "Bootstrap","HTML/CSS"],
+    stack: ["Python", "Flask", "Bootstrap", "HTML/CSS"],
     stars: 0,
     forks: 0,
     live: false,
@@ -71,7 +71,7 @@ const projects = [
     name: "D.S.V - Secure Vault",
     icon: LockKeyhole,
     desc: "Android app for secure PDF encryption with anti-screenshot protection and zero-persistence memory wiping.",
-    stack: ["Flutter","Kotlin", "Android SDK"],
+    stack: ["Flutter", "Kotlin", "Android SDK"],
     stars: 0,
     forks: 0,
     live: false,
@@ -138,46 +138,25 @@ const skillGroups = [
     label: "Backend",
     color: "#3fb950",
     icon: Server,
-    items: [
-      "FastAPI",
-      "Flask",
-      "Node.js",
-      "Express.js",
-      "REST APIs",
-    ],
+    items: ["FastAPI", "Flask", "Node.js", "Express.js", "REST APIs"],
   },
   {
     label: "Databases",
     color: "#2496ed",
     icon: Database,
-    items: [
-      "MySQL",
-      "MongoDB",
-      "Redis",
-      "SQLite",
-    ],
+    items: ["MySQL", "MongoDB", "Redis", "SQLite"],
   },
   {
     label: "Data Science",
     color: "#ffa657",
     icon: Cloud,
-    items: [
-      "Machine Learning",
-      "Sklearn",
-      "Pandas",
-      "Matplotlib",
-      "Seaborn",
-    ],
+    items: ["Machine Learning", "Sklearn", "Pandas", "Matplotlib", "Seaborn"],
   },
   {
     label: "Tools & DevOps",
     color: "#d2a8ff",
     icon: Settings2,
-    items: [
-      "Git",
-      "Docker",
-      "Linux(CLI)",
-    ],
+    items: ["Git", "Docker", "Linux(CLI)"],
   },
 ];
 const education = [
@@ -390,7 +369,9 @@ const BioPage = () => (
           <span className="text-[#79c0ff]">string</span>{" "}
           <span className="text-[#e6edf3]">objective</span>{" "}
           <span className="text-[#ff7b72]">=</span>{" "}
-          <span className="text-[#3fb950]">"if it doesn't exist i'll build it"</span>
+          <span className="text-[#3fb950]">
+            "if it doesn't exist i'll build it"
+          </span>
           <span className="text-[#e6edf3]">;</span>
         </p>
         <p className="pl-8 mb-3">
@@ -424,9 +405,10 @@ const BioPage = () => (
     </div>
 
     {/* ── RIGHT: Profile Picture (Blob shape) ── */}
+    {/* ── RIGHT: Profile Picture (Blob shape) ── */}
     <div className="hidden xl:flex flex-1 flex-col items-center justify-center shrink-0 w-full relative">
       <div
-        className="hidden xl:flex flex-1 flex-col items-center justify-center shrink-0 w-full relative"
+        className="relative w-full max-w-[360px] xl:max-w-[420px] aspect-square overflow-hidden"
         style={{
           backgroundColor: "#58a6ff",
           borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
