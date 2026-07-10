@@ -914,8 +914,8 @@ const AboutPage = () => {
       <SectionCard>
         <CardHeader>
           <Eye className="w-3.5 h-3.5 text-[#3fb950]" />
-          <span className="text-[11px] font-mono font-semibold text-[#8b949e] uppercase tracking-widest">
-            Who's Been Here — A Live Log of My Portfolio Visitors
+          <span className="text-[10px] font-mono font-semibold text-[#8b949e] uppercase tracking-widest">
+            Who's Been Here - Visitors Log
           </span>
           <span className="ml-auto text-[10px] font-mono text-[#8b949e]">
             {visits.length} unique
