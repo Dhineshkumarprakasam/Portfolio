@@ -1,8 +1,14 @@
-import { useState, useEffect } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import * as Accordion from "@radix-ui/react-accordion";
 import * as Separator from "@radix-ui/react-separator";
 import LoadingScreen from "./Loading";
+import { useReveal } from "./useReveal";
+import { ToastProvider, useToast } from "./Toast";
+import { CommandPalette } from "./CommandPalette";
 import {
+  Search,
+  Copy,
+  ArrowUp,
   Github,
   Linkedin,
   Code2,
@@ -212,7 +218,7 @@ const Badge = ({
   children,
   color,
 }: {
-  children: React.ReactNode;
+  children: ReactNode;
   color?: string;
 }) => (
   <span
@@ -247,6 +253,25 @@ const CardHeader = ({ children }: { children: React.ReactNode }) => (
     {children}
   </div>
 );
+
+const Reveal = ({
+  children,
+  delay = 0,
+}: {
+  children: React.ReactNode;
+  delay?: number;
+}) => {
+  const { ref, visible } = useReveal<HTMLDivElement>();
+  return (
+    <div
+      ref={ref}
+      className={visible ? "animate-fade-in-up" : "opacity-0"}
+      style={{ animationDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+};
 
 // ─── File Tab Icon ────────────────────────────────────────────────────────────
 
@@ -461,39 +486,41 @@ const SkillsPage = () => (
     </div>
 
     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-      {skillGroups.map((group) => {
+      {skillGroups.map((group, index) => {
         const Icon = group.icon;
         return (
-          <div
-            key={group.label}
-            className="rounded-xl border border-[#30363d] bg-[#0d1117] p-5 hover:border-opacity-60 transition-all duration-300"
-            style={{ borderColor: `${group.color}33` }}
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div
-                className="p-2 rounded-lg"
-                style={{
-                  backgroundColor: `${group.color}18`,
-                  border: `1px solid ${group.color}33`,
-                }}
-              >
-                <Icon className="w-4 h-4" style={{ color: group.color }} />
+          <Reveal key={group.label} delay={index * 70}>
+            <div
+              key={group.label}
+              className="rounded-xl border border-[#30363d] bg-[#0d1117] p-5 hover:border-opacity-60 transition-all duration-300"
+              style={{ borderColor: `${group.color}33` }}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div
+                  className="p-2 rounded-lg"
+                  style={{
+                    backgroundColor: `${group.color}18`,
+                    border: `1px solid ${group.color}33`,
+                  }}
+                >
+                  <Icon className="w-4 h-4" style={{ color: group.color }} />
+                </div>
+                <span
+                  className="text-[13px] font-semibold font-mono tracking-wide uppercase"
+                  style={{ color: group.color }}
+                >
+                  {group.label}
+                </span>
               </div>
-              <span
-                className="text-[13px] font-semibold font-mono tracking-wide uppercase"
-                style={{ color: group.color }}
-              >
-                {group.label}
-              </span>
+              <div className="flex flex-wrap gap-2">
+                {group.items.map((item) => (
+                  <Badge key={item} color={group.color}>
+                    {item}
+                  </Badge>
+                ))}
+              </div>
             </div>
-            <div className="flex flex-wrap gap-2">
-              {group.items.map((item) => (
-                <Badge key={item} color={group.color}>
-                  {item}
-                </Badge>
-              ))}
-            </div>
-          </div>
+          </Reveal>
         );
       })}
     </div>
@@ -616,6 +643,15 @@ const AboutPage = () => {
       })
       .catch((err) => console.error("Error fetching GitHub stats", err));
   }, []);
+
+  const [visits, setVisits] = useState<{ ip: string; lastSeen: string }[]>([]);
+
+useEffect(() => {
+  fetch("/api/visit")
+    .then((res) => res.json())
+    .then((data) => setVisits(data.visits || []))
+    .catch((err) => console.error("Error fetching visits", err));
+}, []);
 
   return (
     <div className="p-6 md:p-8 space-y-8">
@@ -873,6 +909,39 @@ const AboutPage = () => {
           )}
         </div>
       </SectionCard>
+
+      {/* Visitor Log */}
+<SectionCard>
+  <CardHeader>
+    <Eye className="w-3.5 h-3.5 text-[#3fb950]" />
+    <span className="text-[11px] font-mono font-semibold text-[#8b949e] uppercase tracking-widest">
+      Visitor Log
+    </span>
+    <span className="ml-auto text-[10px] font-mono text-[#8b949e]">
+      {visits.length} unique
+    </span>
+  </CardHeader>
+  <div className="p-4 max-h-64 overflow-y-auto">
+    <table className="w-full text-[12px] font-mono">
+      <thead>
+        <tr className="text-[#8b949e] text-left border-b border-[#30363d]">
+          <th className="pb-2 font-normal">IP Address</th>
+          <th className="pb-2 font-normal">Last Seen</th>
+        </tr>
+      </thead>
+      <tbody>
+        {visits.map((v) => (
+          <tr key={v.ip} className="border-b border-[#21262d]">
+            <td className="py-1.5 text-[#e6edf3]">{v.ip}</td>
+            <td className="py-1.5 text-[#8b949e]">
+              {new Date(v.lastSeen).toLocaleString()}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+</SectionCard>
     </div>
   );
 };
@@ -922,6 +991,17 @@ const Sidebar = ({
     if (ext === "json") return "#ffa657";
     if (ext === "tsx" || ext === "ts") return "#61dafb";
     return "#8b949e";
+  };
+
+  const { showToast } = useToast();
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("dhineshkumarprakasam@gmail.com");
+      showToast("Email copied to clipboard");
+    } catch {
+      showToast("Couldn't copy email");
+    }
   };
 
   return (
@@ -1059,16 +1139,22 @@ const Sidebar = ({
 
         <Separator.Root className="bg-[#30363d] h-px" />
         {/*  Contact */}
-        <div className="p-3">
+        <div className="p-3 flex gap-2">
           <a
             href="https://mail.google.com/mail/?view=cm&to=dhineshkumarprakasam@gmail.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="w-full flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#21262d] border border-[#30363d] text-[11px] font-mono text-[#8b949e] hover:text-[#e6edf3] hover:border-[#58a6ff] transition-all duration-200"
+            className="flex-1 flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-[#21262d] border border-[#30363d] text-[11px] font-mono text-[#8b949e] hover:text-[#e6edf3] hover:border-[#58a6ff] transition-all duration-200"
           >
-            <Contact className="w-3 h-3" />
-            Contact
+            <Contact className="w-3 h-3" /> Contact
           </a>
+          <button
+            onClick={handleCopyEmail}
+            title="Copy email"
+            className="p-2.5 rounded-lg bg-[#21262d] border border-[#30363d] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#58a6ff] transition-all duration-200"
+          >
+            <Copy className="w-3.5 h-3.5" />
+          </button>
         </div>
 
         {/* Download Resume */}
@@ -1093,37 +1179,74 @@ interface FileTabBarProps {
   activeTab: TabId;
   setActiveTab: (tab: TabId) => void;
   onMenuClick: () => void;
+  onOpenPalette: () => void;
 }
 
 const allTabs: TabId[] = ["bio.md", "skills.md", "projects.json", "about.md"];
 
-const FileTabBar = ({ activeTab, setActiveTab, onMenuClick }: FileTabBarProps) => {
+const FileTabBar = ({
+  activeTab,
+  setActiveTab,
+  onMenuClick,
+  onOpenPalette,
+}: FileTabBarProps) => {
   const [visitors, setVisitors] = useState<number | null>(null);
+  const tabRefs = useRef<Partial<Record<TabId, HTMLButtonElement>>>({});
+  const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
   useEffect(() => {
-    fetch("https://api.counterapi.dev/v1/dhineshkumar-portfolio/visits/up")
-  .then((res) => res.json())
-  .then((data) => setVisitors(data.count));
-  }, []);
+  fetch("/api/visit", { method: "POST" })
+    .then(() => fetch("/api/visit"))
+    .then((res) => res.json())
+    .then((data) => setVisitors(data.count))
+    .catch((err) => console.error("Error fetching visits", err));
+}, []);
+
+  useEffect(() => {
+    const updateIndicator = () => {
+      const el = tabRefs.current[activeTab];
+      if (el) setIndicator({ left: el.offsetLeft, width: el.offsetWidth });
+    };
+    updateIndicator();
+    window.addEventListener("resize", updateIndicator);
+    return () => window.removeEventListener("resize", updateIndicator);
+  }, [activeTab]);
 
   return (
-    <div className="flex items-center border-b border-[#30363d] bg-[#0d1117] shrink-0 overflow-x-auto">
+    <div className="relative flex items-center border-b border-[#30363d] bg-[#0d1117] shrink-0 overflow-x-auto">
       <button
         onClick={onMenuClick}
         className="md:hidden p-2 ml-2 mr-1 rounded hover:bg-[#21262d] text-[#8b949e] hover:text-[#e6edf3] transition-colors shrink-0"
       >
         <Menu className="w-4 h-4" />
       </button>
-
+      <button
+        onClick={onOpenPalette}
+        title="Search (Ctrl+K)"
+        className="flex items-center gap-1.5 mx-1.5 my-1.5 px-2.5 py-1.5 rounded-lg border border-[#30363d] bg-[#0d1117] text-[#8b949e] hover:text-[#e6edf3] hover:border-[#58a6ff] transition-all duration-200 shrink-0"
+      >
+        <Search className="w-3.5 h-3.5" />
+        <span className="hidden sm:inline text-[11px] font-mono">Search</span>
+        <kbd className="hidden md:inline-block ml-1 px-1.5 py-0.5 rounded text-[10px] font-mono border border-[#30363d] bg-[#161b22] text-[#6e7681]">
+          ⌘K
+        </kbd>
+      </button>
+      <div
+        className="absolute top-0 h-[2px] bg-[#388bfd] transition-all duration-300 ease-out"
+        style={{ left: indicator.left, width: indicator.width }}
+      />
       {allTabs.map((tab) => {
         const isActive = activeTab === tab;
         return (
           <button
             key={tab}
+            ref={(el) => {
+              if (el) tabRefs.current[tab] = el;
+            }}
             onClick={() => setActiveTab(tab)}
             className={`flex items-center gap-1.5 px-4 py-2.5 text-[11px] font-mono border-r border-[#30363d] whitespace-nowrap cursor-pointer transition-all duration-150 ${
               isActive
-                ? "text-[#e6edf3] border-t-2 border-t-[#388bfd] bg-[#161b22]"
+                ? "text-[#e6edf3] bg-[#161b22]"
                 : "text-[#8b949e] hover:text-[#e6edf3] hover:bg-[#161b22]"
             }`}
           >
@@ -1137,7 +1260,9 @@ const FileTabBar = ({ activeTab, setActiveTab, onMenuClick }: FileTabBarProps) =
       <div className="ml-auto flex items-center gap-1.5 px-4 border-l border-[#30363d] shrink-0">
         <Eye className="w-3 h-3 text-[#8b949e]" />
         <span className="text-[11px] font-mono text-[#8b949e]">
-          {visitors === null ? "..." : "Visitors : "+visitors.toLocaleString()}
+          {visitors === null
+            ? "..."
+            : "Visitors : " + visitors.toLocaleString()}
         </span>
       </div>
     </div>
@@ -1174,7 +1299,19 @@ const StatusBar = ({ activeTab }: { activeTab: TabId }) => (
 export default function App() {
   const [activeTab, setActiveTab] = useState<TabId>("bio.md");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [paletteOpen, setPaletteOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+
+  const contentRef = useRef<HTMLDivElement>(null);
+  const [showTop, setShowTop] = useState(false);
+
+  useEffect(() => {
+    contentRef.current?.scrollTo({ top: 0 });
+  }, [activeTab]);
+
+  const handleScroll = () => {
+    if (contentRef.current) setShowTop(contentRef.current.scrollTop > 400);
+  };
 
   const renderPage = () => {
     switch (activeTab) {
@@ -1190,39 +1327,69 @@ export default function App() {
   };
 
   return (
-    <div
-      className="dark flex flex-col h-screen bg-[#0d1117] overflow-hidden"
-      style={{ fontFamily: "Geist, system-ui, sans-serif" }}
-    >
-      <LoadingScreen onComplete={() => setLoading(false)} />
-      {/* Main Layout */}
-      <div className="flex flex-1 min-h-0 overflow-hidden relative">
-        {/* Left Sidebar */}
-        <Sidebar
-          activeTab={activeTab}
+    <ToastProvider>
+      <div
+        className="dark flex flex-col h-screen bg-[#0d1117] overflow-hidden"
+        style={{ fontFamily: "Geist, system-ui, sans-serif" }}
+      >
+        <LoadingScreen onComplete={() => setLoading(false)} />
+        <CommandPalette
+          open={paletteOpen}
+          onOpenChange={setPaletteOpen}
           setActiveTab={setActiveTab}
-          isOpen={sidebarOpen}
-          onClose={() => setSidebarOpen(false)}
         />
-
-        {/* Right Content */}
-        <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
-          {/* File Tab Bar */}
-          <FileTabBar
+        {/* Main Layout */}
+        <div className="flex flex-1 min-h-0 overflow-hidden relative">
+          {/* Left Sidebar */}
+          <Sidebar
             activeTab={activeTab}
             setActiveTab={setActiveTab}
-            onMenuClick={() => setSidebarOpen(true)}
+            isOpen={sidebarOpen}
+            onClose={() => setSidebarOpen(false)}
           />
 
-          {/* Page Content */}
-          <div className="flex-1 overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#30363d] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#8b949e]">
-            <div className="max-w-[1400px]">{renderPage()}</div>
-          </div>
-        </main>
-      </div>
+          {/* Right Content */}
+          <main className="flex-1 flex flex-col min-w-0 overflow-hidden">
+            {/* File Tab Bar */}
+            <FileTabBar
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              onMenuClick={() => setSidebarOpen(true)}
+              onOpenPalette={() => setPaletteOpen(true)}
+            />
 
-      {/* Status Bar */}
-      <StatusBar activeTab={activeTab} />
-    </div>
+            {/* Page Content */}
+            <div
+              ref={contentRef}
+              onScroll={handleScroll}
+              className="flex-1 overflow-y-auto overflow-x-hidden [&::-webkit-scrollbar]:w-1.5 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-[#30363d] [&::-webkit-scrollbar-thumb]:rounded-full hover:[&::-webkit-scrollbar-thumb]:bg-[#8b949e]"
+            >
+              <div
+                key={activeTab}
+                className="max-w-[1400px] animate-fade-in-up"
+              >
+                {renderPage()}
+              </div>
+            </div>
+          </main>
+        </div>
+
+        <button
+          onClick={() =>
+            contentRef.current?.scrollTo({ top: 0, behavior: "smooth" })
+          }
+          title="Back to top"
+          className={`fixed bottom-6 right-6 z-40 p-2.5 rounded-full bg-[#21262d] border border-[#30363d] text-[#8b949e] hover:text-[#58a6ff] hover:border-[#58a6ff] shadow-lg transition-all duration-300 ${
+            showTop
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-4 pointer-events-none"
+          }`}
+        >
+          <ArrowUp className="w-4 h-4" />
+        </button>
+        {/* Status Bar */}
+        <StatusBar activeTab={activeTab} />
+      </div>
+    </ToastProvider>
   );
 }
