@@ -646,12 +646,12 @@ const AboutPage = () => {
 
   const [visits, setVisits] = useState<{ ip: string; lastSeen: string }[]>([]);
 
-useEffect(() => {
-  fetch("/api/visit")
-    .then((res) => res.json())
-    .then((data) => setVisits(data.visits || []))
-    .catch((err) => console.error("Error fetching visits", err));
-}, []);
+  useEffect(() => {
+    fetch("/api/visit")
+      .then((res) => res.json())
+      .then((data) => setVisits(data.visits || []))
+      .catch((err) => console.error("Error fetching visits", err));
+  }, []);
 
   return (
     <div className="p-6 md:p-8 space-y-8">
@@ -911,37 +911,37 @@ useEffect(() => {
       </SectionCard>
 
       {/* Visitor Log */}
-<SectionCard>
-  <CardHeader>
-    <Eye className="w-3.5 h-3.5 text-[#3fb950]" />
-    <span className="text-[11px] font-mono font-semibold text-[#8b949e] uppercase tracking-widest">
-      Visitor Log
-    </span>
-    <span className="ml-auto text-[10px] font-mono text-[#8b949e]">
-      {visits.length} unique
-    </span>
-  </CardHeader>
-  <div className="p-4 max-h-64 overflow-y-auto">
-    <table className="w-full text-[12px] font-mono">
-      <thead>
-        <tr className="text-[#8b949e] text-left border-b border-[#30363d]">
-          <th className="pb-2 font-normal">IP Address</th>
-          <th className="pb-2 font-normal">Last Seen</th>
-        </tr>
-      </thead>
-      <tbody>
-        {visits.map((v) => (
-          <tr key={v.ip} className="border-b border-[#21262d]">
-            <td className="py-1.5 text-[#e6edf3]">{v.ip}</td>
-            <td className="py-1.5 text-[#8b949e]">
-              {new Date(v.lastSeen).toLocaleString()}
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-</SectionCard>
+      <SectionCard>
+        <CardHeader>
+          <Eye className="w-3.5 h-3.5 text-[#3fb950]" />
+          <span className="text-[11px] font-mono font-semibold text-[#8b949e] uppercase tracking-widest">
+            Who's Been Here — A Live Log of My Portfolio Visitors
+          </span>
+          <span className="ml-auto text-[10px] font-mono text-[#8b949e]">
+            {visits.length} unique
+          </span>
+        </CardHeader>
+        <div className="p-4 max-h-64 overflow-y-auto">
+          <table className="w-full text-[12px] font-mono">
+            <thead>
+              <tr className="text-[#8b949e] text-left border-b border-[#30363d]">
+                <th className="pb-2 font-normal">IP Address</th>
+                <th className="pb-2 font-normal">Last Seen</th>
+              </tr>
+            </thead>
+            <tbody>
+              {visits.map((v) => (
+                <tr key={v.ip} className="border-b border-[#21262d]">
+                  <td className="py-1.5 text-[#e6edf3]">{v.ip}</td>
+                  <td className="py-1.5 text-[#8b949e]">
+                    {new Date(v.lastSeen).toLocaleString()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </SectionCard>
     </div>
   );
 };
@@ -1195,12 +1195,12 @@ const FileTabBar = ({
   const [indicator, setIndicator] = useState({ left: 0, width: 0 });
 
   useEffect(() => {
-  fetch("/api/visit", { method: "POST" })
-    .then(() => fetch("/api/visit"))
-    .then((res) => res.json())
-    .then((data) => setVisitors(data.count))
-    .catch((err) => console.error("Error fetching visits", err));
-}, []);
+    fetch("/api/visit", { method: "POST" })
+      .then(() => fetch("/api/visit"))
+      .then((res) => res.json())
+      .then((data) => setVisitors(data.count))
+      .catch((err) => console.error("Error fetching visits", err));
+  }, []);
 
   useEffect(() => {
     const updateIndicator = () => {
@@ -1373,20 +1373,6 @@ export default function App() {
             </div>
           </main>
         </div>
-
-        <button
-          onClick={() =>
-            contentRef.current?.scrollTo({ top: 0, behavior: "smooth" })
-          }
-          title="Back to top"
-          className={`fixed bottom-6 right-6 z-40 p-2.5 rounded-full bg-[#21262d] border border-[#30363d] text-[#8b949e] hover:text-[#58a6ff] hover:border-[#58a6ff] shadow-lg transition-all duration-300 ${
-            showTop
-              ? "opacity-100 translate-y-0"
-              : "opacity-0 translate-y-4 pointer-events-none"
-          }`}
-        >
-          <ArrowUp className="w-4 h-4" />
-        </button>
         {/* Status Bar */}
         <StatusBar activeTab={activeTab} />
       </div>
